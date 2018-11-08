@@ -1,99 +1,12 @@
+<!doctype html>
 <html>
-<p style="line-height: 18px; font-size: 18px;  font-family: times;">10 men hats</p>
-<br>
-
-<pre id="result"></pre>
-<button onclick="Hats();">Run code</button>
-
-
-<script>
-function Hats(){
-    
-    // randomly put white and black hats on 10 people
-    var deathrow = put_them_hats();
-
-    // his/her guess
-    var my_hat_is = "";
-
-    // this is their rule and it means "my hat color + all I can 'see' or 'know' must be an even number"
-    var white_must_be = "even"; 
-
-    // nth person tell his/hat color (this person can only see people in front of him/her)
-    for(var i = 0; i < deathrow.length; i++){
-    	
-    	// this person looks and counts how many white hat he/she can see        
-        var result = check_their_hats(deathrow, i);
-
-        // if he/she sees even number of white hats it means his/her hat must be black so they remain with even number hats in the row       
-        if(result == white_must_be){
-            my_hat_is = "black";
-        }
-        else{
-            my_hat_is = "white";
-        }
-		
-		// It is time to face the truth. 
-		// If he/she was right the next person knows he/she can keep the rule of "even white hats"
-		// If he/she get killed the next person will know that he count an odd number of white hats from now on
-        if(deathrow[i] == my_hat_is){
-        	document.getElementById('result').innerHTML += (i + 1) + " - You are alive! hat color = " + deathrow[i] + " and you said " + my_hat_is + "\n";
-            //alert("Generated hats: " + deathrow.join(", ") + "\n" + (i + 1) + " - You are alive! hat color = " + deathrow[i] + " and you said " + my_hat_is);
-            console.log(i+1 + " - You are alive! hat color = " + deathrow[i] + " and you said " + my_hat_is);
-        }else{
-        	document.getElementById('result').innerHTML += (i + 1) + " - You are dead! hat color = " + deathrow[i] + " and you said " + my_hat_is + "\n";
-        	//alert("Generated hats: " + deathrow.join(", ") + "\n" + (i + 1) + " - You are dead! hat color = " + deathrow[i] + " and you said " + my_hat_is);
-            console.log(i+1 + " - You are dead! hat color = " + deathrow[i] + " and you said " + my_hat_is);
-            console.log("Oops man down changing our rule to odd number of white hats");
-            white_must_be = "odd";
-        }
-    }
-
-    document.getElementById('result').innerHTML += "\n\n";
-}
-
-function check_their_hats(array, index){
-    
-    var result = "";
-    var count_white = 0;
-
-    for(var i = 0; i < array.length; i++){
-        // he/she will look and check how many white hats he/she can see (and what they already know of course);
-        if(i != index){            
-            if(array[i] == "white"){
-                count_white += 1;
-            }
-        }
-    }
-
-    if(count_white % 2 == 0){
-        // he/she see even number of white hats
-        result = "even"; 
-    }
-    else{
-        // he/she see odd number of white hats
-        result = "odd";
-    }
-
-    return result;
-}
-
-function put_them_hats(){
-
-    // this just generates a 10-elements array with random "white"s or "black"s so we can check the solution
-    var array = [];
-    for(var i = 0; i < 10; i++){
-        if(Math.floor(Math.random()*9) > 5){
-            array[i] = "white";
-        }else{
-            array[i] = "black";
-        }
-    }
-    document.getElementById('result').innerHTML += "Generated hats: " + array.join(", ") + "\n";
-    //alert("Generated hats: " + array.join(", "));
-    console.log("Generated hats: " + array.join(", "));
-    return array;
-}
-
-</script>
-</p>
+<head>
+	<title>HTML Sensor</title>
+	<script src="main.js"></script>
+</head>
+<body>	
+	<p id="ax"></p>	
+	<p id="ay"></p>	
+	<p id="az"></p>
+</body>
 </html>
